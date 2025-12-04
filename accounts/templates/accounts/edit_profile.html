@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Bilgileri Güncelle{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            
+            <!-- Kart Başlangıcı -->
+            <div class="card shadow-lg border-0 rounded-4">
+                
+                <!-- Mavi Başlık Kısmı (Profil Sayfasıyla Uyumlu) -->
+                <div class="card-header bg-primary text-white p-4 rounded-top-4">
+                    <h3 class="mb-0 fw-bold fs-4">Profil Bilgilerini Düzenle</h3>
+                    <p class="mb-0 opacity-75 small">Bilgilerini aşağıdan güncelleyebilirsin.</p>
+                </div>
+
+                <!-- Form Kısmı -->
+                <div class="card-body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <!-- MANUEL HTML INPUTLARI (Backend Hazır Olana Kadar Görüntü İçin) -->
+                        
+                        <!-- Ad -->
+                        <div class="mb-3">
+                            <label for="id_first_name" class="form-label fw-bold text-muted small text-uppercase">Adınız</label>
+                            <!-- value="{{ user.first_name }}" sayesinde mevcut isim kutuda yazar -->
+                            <input type="text" name="first_name" class="form-control" id="id_first_name" 
+                                   placeholder="Adınızı giriniz" value="{{ user.first_name }}">
+                        </div>
+
+                        <!-- Soyad -->
+                        <div class="mb-3">
+                            <label for="id_last_name" class="form-label fw-bold text-muted small text-uppercase">Soyadınız</label>
+                            <input type="text" name="last_name" class="form-control" id="id_last_name" 
+                                   placeholder="Soyadınızı giriniz" value="{{ user.last_name }}">
+                        </div>
+
+                        <!-- E-Posta -->
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label fw-bold text-muted small text-uppercase">E-Posta Adresi</label>
+                            <input type="email" name="email" class="form-control" id="id_email" 
+                                   placeholder="ornek@email.com" value="{{ user.email }}">
+                            <div class="form-text text-muted small">E-posta adresini değiştirmek yeniden doğrulama gerektirebilir.</div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Butonlar -->
+                        <div class="d-flex justify-content-end gap-2">
+                            <!-- İptal butonu profil sayfasına döner -->
+                            <a href="{% url 'profile' %}" class="btn btn-light text-muted border">
+                                İptal
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4">
+                                Değişiklikleri Kaydet
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
