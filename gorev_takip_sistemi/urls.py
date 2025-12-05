@@ -22,4 +22,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('',include('dashboard.urls')),
     path('tasks/',include('tasks.urls')),
+    path('archive/',include('archive.urls')),
 ]
