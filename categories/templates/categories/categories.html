@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <details open style="margin-bottom: 20px;">
+    <summary style="font-size: 20px; cursor: pointer;">
+         ☰ Kategoriler Menüsü
+
+    </summary>
+<h2 style="color: #4A4AFF; font-size: 28px;">Kategori Ekle</h2>
+
+<form method="POST" style="margin-bottom: 20px;">
+    <button type="submit" 
+            style="background-color:#4CAF50; color:white; border:none; padding:10px 18px; border-radius:4px;">
+        + Kategori Ekle
+    </button>
+</form>
+
+<hr>
+
+<h3 style="color: #555;">📁 Mevcut Kategoriler</h3>
+
+<ul style="list-style: none; padding-left: 0; margin-top: 20px;">
+    <li style="margin-bottom: 10px;">
+
+        <!-- Renkli etiket -->
+        <span style="
+            background-color: {{ cat.color }};
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 16px;">
+            {{ cat.name }}
+        </span>
+        <a href="{% url 'edit_category' cat.id %}" 
+   style="background-color:#4A90E2; color:white; padding:5px 10px; border-radius:4px; text-decoration:none; margin-left:5px;">
+    Düzenle
+</a>
+        <!-- Sil butonu -->
+        <button style="
+            background-color: #FF4D4D;
+            color:white;
+            border:none;
+            padding:5px 10px;
+            border-radius: 4px;
+            margin-left: 10px;
+            cursor:pointer;">
+            Sil
+        </button>
+
+    </li>
+</ul>
+    </details>
+    {% endblock %}

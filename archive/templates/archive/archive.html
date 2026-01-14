@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Görev Arşivi{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h2 class="fw-bold text-primary mb-4">Genel Tamamlanan Görevler</h2>
+            <div class="container mb-4">
+    <form method="GET" action="{% url 'archive_list' %}" class="row g-2">
+        <div class="col-md-10 col-8">
+            <input type="text" name="q" class="form-control" placeholder="Görevlerde ara..." value="{{ query|default:'' }}">
+        </div>
+        <div class="col-md-2 col-4">
+            <button class="btn btn-primary w-100" type="submit">Ara</button>
+        </div>
+    </form>
+    
+    {% if query %}
+        <div class="mt-2">
+            <small class="text-muted">"{{ query }}" için sonuçlar gösteriliyor. </small>
+            <a href="{% url 'archive_list' %}" class="btn btn-sm btn-link text-decoration-none p-0">Temizle</a>
+        </div>
+    {% endif %}
+</div>
+            <div class="list-group">
+                {% for task in tasks %}
+                    <div class="list-group-item shadow-sm mb-3 rounded border-start border-success border-4">
+                        <div class="d-flex w-100 justify-content-between align-items-center">
+                            <h5 class="mb-1 fw-bold text-dark">{{ task.title }}</h5>
+                            <span class="badge bg-success rounded-pill px-3 py-2">Tamamlandı</span>
+                        </div>
+                        <p class="mb-1 text-muted">{{ task.description }}</p>
+                        <small class="text-secondary">Tamamlanma Tarihi: {{ task.updated_at|date:"d M Y" }}</small>
+                    </div>
+                {% empty %}
+                    <div class="alert alert-info text-center">
+                        Henüz arşivlenmiş bir görev bulunmuyor.
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
