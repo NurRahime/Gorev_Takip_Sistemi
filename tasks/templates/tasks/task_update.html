@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            
+            <div class="mb-3">
+                <a href="{% url 'task_list' %}" class="text-decoration-none text-muted">
+                    <i class="fas fa-arrow-left me-1"></i> Listeye Dön
+                </a>
+            </div>
+
+            <div class="card border-0 shadow-lg rounded-4">
+                <div class="card-header bg-white border-0 pt-4 text-center">
+                    <div class="avatar-md mx-auto mb-3 bg-warning bg-opacity-10 text-warning rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                        <i class="fas fa-edit fa-2x"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark">Görevi Düzenle</h4>
+                    <p class="text-muted small">Mevcut bilgileri aşağıdan güncelleyebilirsiniz.</p>
+                </div>
+
+                <div class="card-body p-4 pt-2">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="form-floating mb-3">
+                            <input type="text" name="title" class="form-control" id="id_title" placeholder="Görev Başlığı" value="{{ task.title }}" required>
+                            <label for="id_title"><i class="fas fa-heading me-2 text-secondary"></i>Başlık</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <textarea name="description" class="form-control" id="id_description" placeholder="Açıklama" style="height: 120px">{{ task.description|default_if_none:"" }}</textarea>
+                            <label for="id_description"><i class="fas fa-align-left me-2 text-secondary"></i>Açıklama</label>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select name="status" class="form-select" id="id_status">
+                                        <option value="yapilacak" {% if task.status == 'yapilacak' %}selected{% endif %}>Yapılacak</option>
+                                        <option value="devam_ediyor" {% if task.status == 'devam_ediyor' %}selected{% endif %}>Devam Ediyor</option>
+                                        <option value="tamamlandi" {% if task.status == 'tamamlandi' %}selected{% endif %}>Tamamlandı</option>
+                                    </select>
+                                    <label for="id_status"><i class="fas fa-tasks me-2 text-secondary"></i>Durum</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="date" name="due_date" class="form-control" id="id_due_date" value="{{ task.due_date|date:'Y-m-d' }}">
+                                    <label for="id_due_date"><i class="far fa-calendar-alt me-2 text-secondary"></i>Bitiş Tarihi</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'task_list' %}" class="btn btn-light text-muted px-4 rounded-3">
+                                İptal
+                            </a>
+                            <button type="submit" class="btn btn-warning text-dark fw-bold px-4 rounded-3 shadow-sm">
+                                <i class="fas fa-save me-2"></i>Değişiklikleri Kaydet
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

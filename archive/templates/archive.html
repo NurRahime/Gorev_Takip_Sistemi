@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Arşiv{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Arşivlenmiş Öğeler</h2>
+
+  <div class="row mt-3">
+    {% for a in archives %}
+    <div class="col-md-6 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ a.title }}</h5>
+          <p class="card-text">{{ a.summary|truncatewords:30 }}</p>
+
+          <p class="card-text">
+            <small class="text-muted">
+              Oluşturulma: {{ a.created_at }} 
+              · Arşivlenme: {{ a.archived_at }}
+            </small>
+          </p>
+
+          <a href="{% url 'taskboard:archive-detail' a.pk %}" 
+             class="btn btn-sm btn-outline-primary">
+             Detay
+          </a>
+
+          {% if a.file %}
+            <a href="{{ a.file.url }}" 
+               class="btn btn-sm btn-outline-secondary" 
+               download>
+               Dosyayı indir
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="alert alert-secondary">Arşiv boş.</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
