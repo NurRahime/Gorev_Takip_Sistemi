@@ -1,39 +1,104 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row justify-content-center mt-5">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Kayıt Ol</div>
-            <div class="card-body">
+<div class="d-flex align-items-center min-vh-100 bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 
-                {% if error %}
-                    <div class="alert alert-danger">{{ error }}</div>
-                {% endif %}
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden position-relative">
+                    
+                    <div class="position-absolute top-0 start-0 w-100 bg-primary" style="height: 6px;"></div>
 
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label>Kullanıcı Adı</label>
-                        <input type="text" name="username" class="form-control" required>
+                    <div class="card-body p-5">
+                        
+                        <div class="text-center mb-5">
+                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                </svg>
+                            </div>
+                            <h2 class="fw-bold text-dark mb-1">Hesap Oluştur</h2>
+                            <p class="text-muted">Profesyonel dünyaya adım atın.</p>
+                        </div>
+
+                        {% if error %}
+                        <div class="alert alert-danger d-flex align-items-center rounded-3 shadow-sm border-0 mb-4" role="alert">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-exclamation-octagon-fill me-2" viewBox="0 0 16 16">
+                                <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                            </svg>
+                            <span class="small fw-semibold">{{ error }}</span>
+                        </div>
+                        {% endif %}
+
+                        <form method="post" autocomplete="off">
+                            {% csrf_token %}
+
+                            <div class="form-floating mb-3">
+                                <input type="text" name="username" class="form-control bg-light border-0" id="floatingUser" placeholder="Kullanıcı Adı" required>
+                                <label for="floatingUser" class="text-muted">Kullanıcı Adı</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="email" name="email" class="form-control bg-light border-0" id="floatingEmail" placeholder="name@example.com" required>
+                                <label for="floatingEmail" class="text-muted">E-Posta Adresi</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="password" name="password" class="form-control bg-light border-0" id="floatingPass" placeholder="Şifre" required>
+                                <label for="floatingPass" class="text-muted">Şifre</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input type="password" name="re_password" class="form-control bg-light border-0" id="floatingRePass" placeholder="Şifre Tekrar" required>
+                                <label for="floatingRePass" class="text-muted">Şifre Tekrar</label>
+                            </div>
+
+                            <div class="d-grid gap-2 mb-4">
+                                <button type="submit" class="btn btn-primary btn-lg rounded-3 fw-bold shadow-sm py-3 transition-btn">
+                                    Hemen Başla
+                                </button>
+                            </div>
+
+                            <div class="text-center">
+                                <p class="text-muted small mb-0">Zaten bir hesabınız var mı? 
+                                    <a href="{% url 'login' %}" class="text-primary fw-bold text-decoration-none ms-1">Giriş Yap</a>
+                                </p>
+                            </div>
+
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <label>E-Posta</label>
-                        <input type="email" name="email" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label>Şifre</label>
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label>Şifre Tekrar</label>
-                        <input type="password" name="re_password" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-success">Kayıt Ol</button>
-                </form>
+                </div>
+                <div class="text-center mt-4">
+                    <p class="text-muted small text-opacity-75">&copy; 2024 YourBrand. Tüm hakları saklıdır.</p>
+                </div>
 
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    /* Input odaklanınca oluşan mavi halkayı daha şık yap */
+    .form-control:focus {
+        background-color: #fff !important;
+        box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
+        border: 1px solid #0d6efd !important;
+    }
+    
+    /* Butona hover efekti */
+    .transition-btn {
+        transition: all 0.3s ease;
+    }
+    .transition-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(13, 110, 253, 0.25) !important;
+    }
+
+    /* Arka plan için yumuşak gradient (İsteğe bağlı, base.html'i bozmaz) */
+    body {
+        background: #f8f9fa; /* Eğer base.html'de bg varsa burası ezilir */
+    }
+</style>
 {% endblock %}
